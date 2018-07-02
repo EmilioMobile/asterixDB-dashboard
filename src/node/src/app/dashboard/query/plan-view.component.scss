@@ -25,6 +25,8 @@ limitations under the License.
   display: flex;
   flex-flow: row;
   justify-content: flex-start;
+  border-bottom: 1px dashed gray;
+  margin-bottom: 15px;
 }
 
 .plan-header {
@@ -82,6 +84,7 @@ limitations under the License.
   font-size: 12px !important;
   float: right;
   color: red !important;
+  margin-bottom: 15px;
 }
 
 #wrapper {
