@@ -1,0 +1,41 @@
+<!--/*
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/-->
+<mat-card class="card mat-elevation-z0">
+  <mat-expansion-panel class="mat-elevation-z0" hideToggle>
+    <mat-expansion-panel-header class="header">
+      <mat-panel-title>
+          <mat-panel-title>SQL++ INPUT ({{currentQuery+1}}/{{preparedQueryCount}})</mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        <mat-spinner *ngIf="querySpinnerVisible" [color]="blue" [diameter]="15" class="spinner"></mat-spinner>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description class="content-area">
+      <div class="codemirror-container">
+        <textarea class="code" #editor></textarea>
+      </div>
+    </mat-panel-description>
+    <mat-action-row>
+      <div class="message">
+        <span *ngIf="querySuccess" class="metrics">{{metricsString}}</span>
+        <span *ngIf="queryError" class="queryErrorMessage">{{queryErrorMessageString}}</span>
+      </div>
+      <div class="space"></div>
+      <button mat-button class='input-button' (click)="onClickNew()">NEW</button>
+      <button mat-button class='input-button' (click)="onClickClear()">CLEAR</button>
+      <button mat-button class='input-button run' (click)="onClickRun()">RUN</button>
+      <button mat-button class='input-button' (click)="onClickPrevious()" [disabled]="checkPrevious()">PREVIOUS</button>
+      <button mat-button class='input-button' (click)="onClickNext()" [disabled]="checkNext()">NEXT</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-card>
