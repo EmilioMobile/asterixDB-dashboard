@@ -361,4 +361,12 @@ export class TreeViewComponent {
   changeJsonPathValue(event) {
     this.jsonPath_ = event.link;
   }
+
+  dataExpand() {
+
+  }
+
+  dataCollapse() {
+
+  }
 }

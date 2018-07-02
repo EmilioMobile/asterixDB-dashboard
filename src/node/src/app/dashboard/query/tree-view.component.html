@@ -23,8 +23,10 @@ limitations under the License.
           <span class='summary' >Items: {{metrics.resultCount}} Size: {{metrics.resultSizeKb}} Kb</span>
           <mat-paginator [length]='metrics.resultCount' [pageSize]='pagedefaults.pageSize' [pageSizeOptions]='pageSizeOptions' (page)='showResults($event)'>
             </mat-paginator>
-          <button mat-button class='button button-json' (click)='showJSON()'>{{viewMode}}</button>
-          <button id='export' mat-button class='button' (click)='exportToText()'>EXPORT</button>
+          <button mat-button class='button' (click)='dataExpand()' matTooltip="Expand Data"><mat-icon>add_circle</mat-icon></button>
+          <button mat-button class='button' (click)='dataCollapse()' matTooltip="Collapse Data"><mat-icon>remove_circle_outline</mat-icon></button>
+          <button mat-button class='button' (click)='showJSON()' matTooltip="Show JSON or Tree View">{{viewMode}}</button>
+          <button id='export' mat-button class='button' (click)='exportToText()' matTooltip="Export JSON file to Computer">EXPORT</button>
       </div>
       <div *ngIf='!jsonVisible' class='navi-data' class='navi-data'>
         <mat-icon class='navi-path'>link</mat-icon>

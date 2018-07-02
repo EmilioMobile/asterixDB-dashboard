@@ -20,7 +20,7 @@ limitations under the License.
     </mat-expansion-panel-header>
     <mat-panel-description class='content'>
       <div class='panel'>
-        <button mat-button class='button' (click)="showJSON()">JSON</button>
+        <button mat-button class='button' (click)="showJSON()" matTooltip="Toggle JSON or Graphic View">JSON</button>
       </div>
       <div class="divider">
         <div *ngIf="!jsonVisible" class="plan">

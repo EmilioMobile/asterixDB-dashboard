@@ -30,10 +30,10 @@ limitations under the License.
         <span *ngIf="queryError" class="queryErrorMessage">{{queryErrorMessageString}}</span>
       </div>
       <div class="space"></div>
-      <button mat-button class='input-button' (click)="onClickNew()">NEW</button>
-      <button mat-button class='input-button' (click)="onClickClear()">CLEAR</button>
-      <button mat-button class='input-button run' (click)="onClickRun()">RUN</button>
-      <button mat-button class='input-button' (click)="onClickPrevious()" [disabled]="checkPrevious()">PREVIOUS</button>
-      <button mat-button class='input-button' (click)="onClickNext()" [disabled]="checkNext()">NEXT</button>
+      <button mat-button class='input-button' (click)="onClickNew()" matTooltip="New Query Slot">NEW</button>
+      <button mat-button class='input-button' (click)="onClickClear()" matTooltip="Clear Query Slot">CLEAR</button>
+      <button mat-button class='input-button run' (click)="onClickRun()" matTooltip="Execute Query">RUN</button>
+      <button mat-button class='input-button' (click)="onClickPrevious()" [disabled]="checkPrevious()" matTooltip="Previous Query Slot">PREVIOUS</button>
+      <button mat-button class='input-button' (click)="onClickNext()" [disabled]="checkNext()" matTooltip="Next Query Slot">NEXT</button>
     </mat-action-row>
   </mat-expansion-panel>
