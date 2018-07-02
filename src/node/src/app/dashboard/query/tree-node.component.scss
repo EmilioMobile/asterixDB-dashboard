@@ -21,35 +21,21 @@ limitations under the License.
 
 .node-content{
   padding-top: 5px;
+  border: 1px dashed gainsboro;
 }
 
 .node-details {
-  //display: flex;
-  //flex-flow: row;
-  //align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
   list-style-type: none;
-  //background-color: red;
-  //cursor: pointer; // &::before {
-  //     content: "";
-  //     position: absolute;
-  //     left: -12px;
-  //     border-top: 1px solid #000;
-  //     top: 9px;
-  //     width: 8px;
-  //     height: 0;
-  // }
- // &:hover {
- //   color: blue;
- //   text-decoration: underline;
- // }
+  .node-content{
+    padding: 10px;
+    border: 1px dashed gainsboro;
+  }
 }
 
 .node-children {
   &:hover {
-  //  color: blue;
-  //  text-decoration: underline;
     cursor: pointer;
   }
   margin-left: 20px;
@@ -57,7 +43,6 @@ limitations under the License.
 
 ul {
   list-style-type: none;
-  //margin-bottom: 15px;
 }
 
 .pre-item-icon {
@@ -66,6 +51,7 @@ ul {
 }
 
 .value {
-  margin-left: 15px;
   color: orangered;
+  padding: 5px;
+  border: 1px dashed gainsboro;
 }
