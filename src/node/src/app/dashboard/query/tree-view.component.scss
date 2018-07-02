@@ -25,6 +25,7 @@ limitations under the License.
   //justify-content: space-between;
   font-size: 12px;
   padding-top: 15px;
+  border-bottom: 1px dashed gray;
 }
 
 .navi-buttons {
@@ -78,8 +79,10 @@ limitations under the License.
   display: flex;
   flex-flow: row;
   margin-top: 15px;
+  margin-bottom: 15px;
   margin-left: 5px;
   font-size: 14px;
+  border-bottom: 1px dashed gray;
 }
 
 .navi-path {
@@ -107,6 +110,7 @@ limitations under the License.
   //height: 40px;
   float: left;
   margin-right: 15px;
+  margin-bottom: 15px;
   padding-left: 15px;
   padding-right: 15px;
   font-size: 14px;
