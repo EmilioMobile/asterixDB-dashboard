@@ -21,14 +21,13 @@ limitations under the License.
     <mat-panel-description class='content'>
       <div class='panel'>
           <span class='summary' >Items: {{metrics.resultCount}} Size: {{metrics.resultSizeKb}} Kb</span>
-          <button mat-button class='button' (click)='showJSON()'>{{viewMode}}</button>
+          <mat-paginator [length]='metrics.resultCount' [pageSize]='pagedefaults.pageSize' [pageSizeOptions]='pageSizeOptions' (page)='showResults($event)'>
+            </mat-paginator>
+          <button mat-button class='button button-json' (click)='showJSON()'>{{viewMode}}</button>
           <button id='export' mat-button class='button' (click)='exportToText()'>EXPORT</button>
       </div>
-      <div class='divider'>
-          <mat-paginator [length]='metrics.resultCount' [pageSize]='pagedefaults.pageSize' [pageSizeOptions]='pageSizeOptions' (page)='showResults($event)'>
-          </mat-paginator>
-      </div>
       <div *ngIf='!jsonVisible' class='navi-data' class='navi-data'>
+        <mat-icon class='navi-path'>link</mat-icon>
         <span class='navi-path'>{{jsonPath_}}</span>
       </div>
       <div class='divider'>

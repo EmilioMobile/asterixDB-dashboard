@@ -24,6 +24,7 @@ limitations under the License.
   flex-flow: row;
   //justify-content: space-between;
   font-size: 12px;
+  padding-top: 15px;
 }
 
 .navi-buttons {
@@ -37,6 +38,7 @@ limitations under the License.
   min-height: 42px;
   font-size: 0.80rem;
   font-weight: 500;
+  border-bottom: 1px solid red;
 }
 
 .divider {
@@ -68,6 +70,10 @@ limitations under the License.
   float: left;
 }
 
+.button-json {
+  color: red !important;
+}
+
 .navi-data {
   display: flex;
   flex-flow: row;
@@ -77,12 +83,15 @@ limitations under the License.
 }
 
 .navi-path {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
   font-size: 14px;
-  color: #30332E;
+  color: orangered;
   border-radius: 4px;
-  padding: 10px;
+  // padding: 10px;
   height: 40px;
-  background-color: #8CCDD1;
+ // background-color: #8CCDD1;
 }
 
 .back-button {
@@ -95,12 +104,16 @@ limitations under the License.
 }
 
 .summary {
-  height: 50px;
+  //height: 40px;
   float: left;
   margin-right: 15px;
-  padding: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 14px;
-  background-color: #8CCDD1;
+  //background-color: #8CCDD1;
+  background-color: gainsboro;
   border-radius: 4px;
   color: #30332E;
+  display: inline-flex;
+  align-items: center;
 }
