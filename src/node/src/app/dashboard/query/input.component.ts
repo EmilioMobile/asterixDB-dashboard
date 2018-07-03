@@ -70,6 +70,7 @@ export class InputQueryComponent {
   selected = 'Default';
   history = [];
   currentHistory = 0;
+  viewCurrentHistory = 0; // for the view
 
   /* Codemirror configuration */
   codemirrorConfig = {
@@ -220,6 +221,7 @@ export class InputQueryComponent {
     this.getQueryResults(this.queryString); // .replace(/\n/g, " "));
     this.history.push(this.queryString);
     this.currentHistory = this.history.length - 1;
+    this.viewCurrentHistory = this.history.length;
   }
 
   onClickNew() {
@@ -368,6 +370,7 @@ export class InputQueryComponent {
   onClickNextHistory() {
     if (this.currentHistory < this.history.length - 1) {
       this.currentHistory++;
+      this.viewCurrentHistory++;
       this.queryString = this.history[this.currentHistory];
       this.editor.getDoc().setValue(this.queryString);
       this.editor.focus();
@@ -377,6 +380,7 @@ export class InputQueryComponent {
   onClickPrevHistory() {
     if (this.currentHistory > 0) {
       this.currentHistory--;
+      this.viewCurrentHistory--;
       this.queryString = this.history[this.currentHistory];
       this.editor.getDoc().setValue(this.queryString);
       this.editor.focus();

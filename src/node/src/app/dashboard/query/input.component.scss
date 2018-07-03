@@ -89,7 +89,12 @@ $query-spacing-unit: 5px;
 }
 
 .history {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   width: 88px;
   margin-top: 15px;
   margin-left: 15px;
+  font-size: 0.80rem !important;
+  font-weight: 500 !important;
 }
