@@ -49,15 +49,15 @@ export class InputQueryComponent {
   input_expanded_icon = 'expand_less';
   queryRequest: QueryRequest;
   queryPrepare: QueryPrepare;
-  queryMetrics$: Observable < any > ;
+  queryMetrics$: Observable <any> ;
   queryMetrics: {};
-  querySuccess$: Observable < any > ;
+  querySuccess$: Observable <any> ;
   querySuccess: Boolean = false;
-  queryError$: Observable < any > ;
+  queryError$: Observable <any> ;
   queryError: Boolean = false;
-  queryErrorMessage$: Observable < any > ;
+  queryErrorMessage$: Observable <any> ;
   queryErrorMessages: {};
-  queryPrepared$: Observable < any > ;
+  queryPrepared$: Observable <any> ;
   queryPrepared: {};
   preparedQueryCount: number;
   previousDisabled = true;
@@ -68,6 +68,8 @@ export class InputQueryComponent {
   dataverses: any;
   defaultDataverse = 'Default';
   selected = 'Default';
+  history = [];
+  currentHistory = 0;
 
   /* Codemirror configuration */
   codemirrorConfig = {
@@ -216,6 +218,8 @@ export class InputQueryComponent {
 
   onClickRun() {
     this.getQueryResults(this.queryString); // .replace(/\n/g, " "));
+    this.history.push(this.queryString);
+    this.currentHistory = this.history.length - 1;
   }
 
   onClickNew() {
@@ -359,5 +363,23 @@ export class InputQueryComponent {
     }
     this.editor.getDoc().setValue(this.queryString);
     this.editor.focus();
+  }
+
+  onClickNextHistory() {
+    if (this.currentHistory < this.history.length - 1) {
+      this.currentHistory++;
+      this.queryString = this.history[this.currentHistory];
+      this.editor.getDoc().setValue(this.queryString);
+      this.editor.focus();
+    }
+  }
+
+  onClickPrevHistory() {
+    if (this.currentHistory > 0) {
+      this.currentHistory--;
+      this.queryString = this.history[this.currentHistory];
+      this.editor.getDoc().setValue(this.queryString);
+      this.editor.focus();
+    }
   }
 }
