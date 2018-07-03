@@ -13,20 +13,21 @@ limitations under the License.
 */ -->
 <div id='top' *ngIf='treeData' class='tree-card'>
   <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header class='header'>
-        <mat-icon>format_list_numbered_rtl</mat-icon>
+    <mat-expansion-panel-header class='header header-centered-v'>
         <mat-panel-title>OUTPUT DATA</mat-panel-title>
-        <mat-panel-description></mat-panel-description>
+        <mat-icon>format_list_numbered_rtl</mat-icon>
     </mat-expansion-panel-header>
     <mat-panel-description class='content'>
       <div class='panel'>
           <span class='summary' >Items: {{metrics.resultCount}} Size: {{metrics.resultSizeKb}} Kb</span>
-          <mat-paginator [length]='metrics.resultCount' [pageSize]='pagedefaults.pageSize' [pageSizeOptions]='pageSizeOptions' (page)='showResults($event)'>
+          <mat-paginator [length]='metrics.resultCount' [pageSize]='pagedefaults.pageSize' [pageSizeOptions]='pageSizeOptions' (page)='showResults($event, false)'>
             </mat-paginator>
-          <button mat-button class='button' (click)='dataExpand()' matTooltip="Expand Data"><mat-icon>add_circle</mat-icon></button>
-          <button mat-button class='button' (click)='dataCollapse()' matTooltip="Collapse Data"><mat-icon>remove_circle_outline</mat-icon></button>
-          <button mat-button class='button button-json' (click)='showJSON()' matTooltip="Show JSON or Tree View">{{viewMode}}</button>
-          <button id='export' mat-button class='button' (click)='exportToText()' matTooltip="Export JSON file to Computer">EXPORT</button>
+          <span class='options'>
+            <button mat-button class='button' (click)='dataExpand()' matTooltip="Expand Data"><mat-icon>add_circle</mat-icon></button>
+            <button mat-button class='button' (click)='dataCollapse()' matTooltip="Collapse Data"><mat-icon>remove_circle_outline</mat-icon></button>
+            <button mat-button class='button button-json' (click)='showJSON()' matTooltip="Show JSON or Tree View">{{viewMode}}</button>
+            <button id='export' mat-button class='button' (click)='exportToText()' matTooltip="Export JSON file to Computer">EXPORT</button>
+        </span>
       </div>
       <div *ngIf='!jsonVisible' class='navi-data' class='navi-data'>
         <mat-icon class='navi-path'>link</mat-icon>

@@ -29,6 +29,7 @@ export const UPDATE_DATAVERSE_FAIL      = '[Dataverse Collection] Update Dataver
 export const DROP_DATAVERSE             = '[Dataverse Collection] Drop Dataverses';
 export const DROP_DATAVERSE_SUCCESS     = '[Dataverse Collection] Drop Dataverses Success';
 export const DROP_DATAVERSE_FAIL        = '[Dataverse Collection] Drop Dataverses Fail';
+export const SET_DEFAULT_DATAVERSE      = '[Dataverse Collection] Set Default Dataverse';
 
 /*
 * Select Dataverses
@@ -102,6 +103,12 @@ export class DropDataverseFail implements Action {
     constructor(public payload: Dataverse) {}
 }
 
+export class SetDefaultDataverse implements Action {
+  readonly type = SET_DEFAULT_DATAVERSE;
+  constructor(public payload: any) {}
+}
+
+
 /*
 * Exports of datasverses actions
 */
@@ -116,4 +123,5 @@ export type All = SelectDataverses |
     UpdateDataverseFail |
     DropDataverse |
     DropDataverseSuccess |
-    DropDataverseFail;
+    DropDataverseFail |
+    SetDefaultDataverse;

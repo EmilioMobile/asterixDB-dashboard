@@ -32,7 +32,8 @@ export interface State {
     dropDataverseName: string;
     dropDataverseError: any[],
     dropDataverseSuccess: boolean,
-    dropDataverseFailed: boolean
+    dropDataverseFailed: boolean,
+    defaultDataverseName: any
 };
 
 const initialState: State = {
@@ -48,7 +49,8 @@ const initialState: State = {
     dropDataverseName: "",
     dropDataverseError: [],
     dropDataverseSuccess: false,
-    dropDataverseFailed: false
+    dropDataverseFailed: false,
+    defaultDataverseName: 'Default'
 };
 
 /*
@@ -56,6 +58,13 @@ const initialState: State = {
 */
 export function dataverseReducer(state = initialState, action: Action) {
     switch (action.type) {
+
+      /*
+      * Set the default Dataverse Name
+      */
+     case DataverseAction.SET_DEFAULT_DATAVERSE: {
+        return Object.assign({}, state, { defaultDataverseName: action.payload });
+      }
 
       /*
       * Change the load state to true to signaling

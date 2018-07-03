@@ -25,18 +25,25 @@ export type Action = dataverseActions.All
 
 @Injectable()
 export class DataverseEffects {
-  constructor(private actions: Actions,
-        private sqlService: SQLService) {}
+  constructor(private actions: Actions, private sqlService: SQLService) {}
+
+    /* Effect to set the default Dataverse */
+    @Effect()
+    setDefaultDataverse$: Observable<Action> = this.actions
+        .ofType(dataverseActions.SET_DEFAULT_DATAVERSE)
+        .switchMap(query => {
+            return new Observable().map(dataverse => new dataverseActions.SetDefaultDataverse('Default'))
+    });
 
     /* Effect to load a collection of all Dataverses from AsterixDB */
     @Effect()
-        selectDataverses$: Observable<Action> = this.actions
-            .ofType(dataverseActions.SELECT_DATAVERSES)
-            .switchMap(query => {
-                return this.sqlService.selectDataverses()
-                    .map(dataverse => new dataverseActions.SelectDataversesSuccess(dataverse))
-                    .catch(err => of(new dataverseActions.SelectDataversesFail(err)));
-        });
+    selectDataverses$: Observable<Action> = this.actions
+        .ofType(dataverseActions.SELECT_DATAVERSES)
+        .switchMap(query => {
+            return this.sqlService.selectDataverses()
+                .map(dataverse => new dataverseActions.SelectDataversesSuccess(dataverse))
+                .catch(err => of(new dataverseActions.SelectDataversesFail(err)));
+    });
 
     /* Effect to create Dataverse from AsterixDB
     */

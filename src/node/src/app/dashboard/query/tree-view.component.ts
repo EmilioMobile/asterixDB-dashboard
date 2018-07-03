@@ -130,21 +130,23 @@ export class TreeViewComponent {
     }
 ]
 
-
   jsonVisible: any;
   jsonData: any;
-  jsonPath_: any = ': < Click on items >';
+  jsonPath_: any = ': < DATA PATH >';
 	rawData: any;
   treeData: any;
 	treeData_: any;
 	metrics: any;
-	currentIndex: any = 0;
+  currentIndex: any = 0;
+  currentRange: any;
 	/* see 10 records as initial set */
 	pagedefaults: any = { pageIndex: 0, pageSize:10, lenght: 0};
 	pageSizeOptions = [5, 10, 25, 100, 200];
 	viewMode = 'JSON';
 	showGoTop = false;
-	showGoBottom = false;
+  showGoBottom = false;
+  EXPANDED = true;
+  COLLAPSED = false;
 
 	private eventOptions: boolean|{capture?: boolean, passive?: boolean};
 
@@ -153,7 +155,7 @@ export class TreeViewComponent {
   ngOnInit() {
 		this.rawData = this.data['results'];
 		if (this.rawData) {
-			this.showResults(this.pagedefaults);
+			this.showResults(this.pagedefaults, this.COLLAPSED);
 		}
 
 		this.ngZone.runOutsideAngular(() => {
@@ -164,7 +166,7 @@ export class TreeViewComponent {
 	ngOnChanges(changes: SimpleChange) {
 		this.rawData = this.data['results'];
 		if (this.rawData) {
-			this.showResults(this.pagedefaults);
+			this.showResults(this.pagedefaults, this.COLLAPSED);
 		}
 	}
 
@@ -177,21 +179,20 @@ export class TreeViewComponent {
 		return index >= startRange && index < startRange + params.pageSize;
 	}
 
-	showResults(range) {
-		this.currentIndex = range.pageIndex;
+	showResults(range, expanded) {
+    this.currentRange = range;
+		this.currentIndex = this.currentRange.pageIndex;
 //    this.treeData = this.dataSample;
-    this.treeData = this.rawData.filter(this.filter, range);
-
-
+    this.treeData = this.rawData.filter(this.filter, this.currentRange);
 		if (this.treeData.length > 0) {
 			this.metrics = this.data['metrics'];
 			this.metrics['resultSizeKb'] = (this.metrics.resultSize/1024).toFixed(2);
 			var myData_ = [];
       for (let i = 0; i < this.treeData.length; i++) {
 				let  nodeContent= {};
-				// mat-paginator start counting from 1, thats why the i+1 trick
-        myData_.push(this.generateTree(this.treeData[i], '/', nodeContent, (range.pageSize * range.pageIndex) + (i + 1), 0));
-			}
+        // mat-paginator start counting from 1, thats why the i+1 trick
+        myData_.push(this.generateTree(this.treeData[i], '/', nodeContent, (this.currentRange.pageSize * this.currentRange.pageIndex) + (i + 1), 0, expanded));
+      }
 
 			this.treeData_ = myData_;
 
@@ -207,7 +208,7 @@ export class TreeViewComponent {
     /*
 	* Shows JSON text
 	*/
-    showJSON() {
+  showJSON() {
 		this.jsonVisible = !this.jsonVisible;
 		if (this.jsonVisible) {
 			this.viewMode = 'TREE';
@@ -215,12 +216,12 @@ export class TreeViewComponent {
 		else {
 			this.viewMode = 'JSON';
 		}
-    }
+  }
 
     /*
 	* Export to CSV
 	*/
-    exportToCSV(){
+  exportToCSV(){
 		var exportOutput = JSON.stringify(this.rawData, null, 4);
 		var blob = new Blob([this.jsonData], {type: "text/csv;charset=utf-8"});
 		saveAs(blob, "Asterix-results.csv");
@@ -229,7 +230,7 @@ export class TreeViewComponent {
 	/*
 	*  Export to plain text
 	*/
-    exportToText(){
+  exportToText(){
 		var exportOutput = JSON.stringify(this.rawData, null, 4);
 		var blob = new Blob([exportOutput], {type: "text/json;charset=utf-8"});
 		saveAs(blob, "Asterix-results.json");
@@ -239,11 +240,12 @@ export class TreeViewComponent {
   * This function converts the json object into a node/array graph structure ready to be display as a tree
   * it will also augment the nodes with a link containing the path that the elements occupies in the json graph
   */
-  generateTree(node, nodeLink, rootMenu, index, level): any {
+  generateTree(node, nodeLink, rootMenu, index, level, expanded): any {
 
 		// Check in case the root object is not defined properly
 		if (rootMenu === {}) {
-			rootMenu = { item: '', label: 'K', key: '', value: '', link: '/', visible: true, children: [], level: 0};
+      console.log(expanded)
+			rootMenu = { item: '', label: 'K', key: '', value: '', link: '/', visible: expanded, children: [], level: 0};
 		}
 
 		let nodeArray = [];
@@ -254,7 +256,7 @@ export class TreeViewComponent {
 
 			if (typeof node[k] === 'object') {
         if(Array.isArray(node[k]) ){
-          let nodeObject = { nested: true, item: '', label: '', key: '', value: '', type: 'ARRAY', link: '/', visible: false, children: [], level: level};
+          let nodeObject = { nested: true, item: '', label: '', key: '', value: '', type: 'ARRAY', link: '/', visible: expanded, children: [], level: level};
           nodeObject.item = index;
           nodeObject.label = k;
           nodeObject.key = k;
@@ -264,7 +266,7 @@ export class TreeViewComponent {
           level = level + 1;
           // if this is an object then a new node is created and
           // recursive call to find and fill with the nested elements
-          let newNodeObject = this.generateTree(node[k], nodeObject.link, nodeObject, index, level);
+          let newNodeObject = this.generateTree(node[k], nodeObject.link, nodeObject, index, level, expanded);
 
           // if this is the first node, then will become the root.
           if (rootMenu.children) {
@@ -274,7 +276,7 @@ export class TreeViewComponent {
             newNodeObject.type = 'ROOT';
           }
         } else {
-          let nodeObject = { nested: true, item: '', label: '', key: '', value: '', type: 'OBJECT', link: '/', visible: true, children: [], level: level};
+          let nodeObject = { nested: true, item: '', label: '', key: '', value: '', type: 'OBJECT', link: '/', visible: expanded, children: [], level: level};
           nodeObject.item = index;
           nodeObject.label = k;
           nodeObject.key = k;
@@ -284,22 +286,22 @@ export class TreeViewComponent {
           level = level + 1;
           // if this is an object then a new node is created and
           // recursive call to find and fill with the nested elements
-          let newNodeObject = this.generateTree(node[k], nodeObject.link, nodeObject, index, level);
+          let newNodeObject = this.generateTree(node[k], nodeObject.link, nodeObject, index, level, expanded);
 
           // if this is the first node, then will become the root.
           if (rootMenu.children) {
             rootMenu.children.push(newNodeObject)
           } else {
             nodeObject.nested = false;
-            newNodeObject.visible = false;
+            newNodeObject.visible = expanded;
             newNodeObject.type = 'ROOT';
             rootMenu = newNodeObject
           }
         }
 			}
       else {
-				// Array of key values converted into a unique string with a : separator
-				let nodeKeyValue = { nested: false, item: '', label: '', key: '', value: '', type: 'KEYVALUE', link: '/', visible: true, children: [], level: level};
+        // Array of key values converted into a unique string with a : separator
+				let nodeKeyValue = { nested: false, item: '', label: '', key: '', value: '', type: 'KEYVALUE', link: '/', visible: expanded, children: [], level: level};
 				nodeKeyValue.item = index;
 				nodeKeyValue.label = k + " : " + node[k];
 				nodeKeyValue.key = k;
@@ -363,10 +365,10 @@ export class TreeViewComponent {
   }
 
   dataExpand() {
-
+    this.showResults(this.currentRange, this.EXPANDED);
   }
 
   dataCollapse() {
-
+    this.showResults(this.currentRange, this.COLLAPSED);
   }
 }

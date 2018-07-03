@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import * as appActions from '../shared/actions/app.actions'
+import * as dataverseActions from '../shared/actions/dataverse.actions';
 
 @Component({
     moduleId: module.id,
@@ -29,12 +30,13 @@ export class AppBarComponent {
 
     constructor(private store: Store<any>) {
         this.sideMenuVisible$ = this.store.select(s => s.app.sideMenuVisible);
-		this.sideMenuVisible$.subscribe((data: any) => {
-			if (data){
-                this.sideMenuVisible = data;
-			} else {
-			}
+		    this.sideMenuVisible$.subscribe((data: any) => {
+          if (data){
+                  this.sideMenuVisible = data;
+          } else {
+          }
         })
+        this.store.dispatch(new dataverseActions.SelectDataverses('-'));
     }
 
     onClickMenu() {

@@ -64,6 +64,10 @@ export class InputQueryComponent {
   nextDisabled = true;
   querySuccesResults: any;
   querySpinnerVisible: boolean = false;
+  dataverses$: Observable<any>;
+  dataverses: any;
+  defaultDataverse = 'Default';
+  selected = 'Default';
 
   /* Codemirror configuration */
   codemirrorConfig = {
@@ -167,6 +171,17 @@ export class InputQueryComponent {
     this.store.dispatch(new appActions.setEditorIndex(String(this.currentQuery)));
   }
 
+  ngOnInit() {
+    this.dataverses$ = this.store.select(s => s.dataverse.dataverses.results);
+
+    // Watching for Dataverses
+    this.dataverses$ = this.store.select(s => s.dataverse.dataverses.results);
+    this.dataverses$.subscribe((data: any[]) => {
+       this.dataverses = data;
+       this.defaultDataverse = 'KAMON'
+    });
+  }
+
   showMetrics() {
     this.querySuccess = false;
     if (this.queryMetrics && this.queryMetrics[this.currentQuery] && this.querySuccesResults[this.currentQuery]) {
@@ -230,6 +245,8 @@ export class InputQueryComponent {
     // lets inform other views what's the current SQL editor
     let currentQueryIndex = String(this.currentQuery);
     this.store.dispatch(new appActions.setEditorIndex(currentQueryIndex));
+
+    this.dataverseSelected();
 
     this.editor.focus();
   }
@@ -332,5 +349,15 @@ export class InputQueryComponent {
     this.editor.on('changes', () => {
       this.queryString = this.editor.getValue();
     });
+  }
+
+  dataverseSelected() {
+    if (this.selected == undefined) {
+      this.queryString = '';
+    } else {
+      this.queryString = 'Use ' + this.selected + '; ';
+    }
+    this.editor.getDoc().setValue(this.queryString);
+    this.editor.focus();
   }
 }

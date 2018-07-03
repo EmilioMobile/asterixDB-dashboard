@@ -14,12 +14,24 @@ limitations under the License.
   <mat-expansion-panel class="card" hideToggle>
     <mat-expansion-panel-header class="header">
       <mat-panel-title>
-          <mat-panel-title>SQL++ INPUT ({{currentQuery+1}}/{{preparedQueryCount}})</mat-panel-title>
+          <mat-panel-title>SQL++ INPUT ({{currentQuery+1}}/{{preparedQueryCount}})
+          </mat-panel-title>
           <mat-panel-description></mat-panel-description>
         <mat-spinner *ngIf="querySpinnerVisible" [color]="blue" [diameter]="15" class="spinner"></mat-spinner>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-panel-description class="content-area">
+      <div class='dataverses'>
+        <div>SELECT DATAVERSE:</div>
+        <mat-form-field>
+            <mat-select [(ngModel)]="selected" (selectionChange)="dataverseSelected()">
+              <mat-option [value]='none'>None</mat-option>
+              <mat-option *ngFor="let dataverse of dataverses" [value]="dataverse.DataverseName">
+                {{dataverse.DataverseName}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
       <div class="codemirror-container">
         <textarea class="code" #editor></textarea>
       </div>

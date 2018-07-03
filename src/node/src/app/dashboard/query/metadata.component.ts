@@ -11,29 +11,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { Component, Inject, ChangeDetectorRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Dataverse } from '../../shared/models/asterixDB.model';
+import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as dataverseActions from '../../shared/actions/dataverse.actions';
 import * as datasetActions from '../../shared/actions/dataset.actions';
 import * as datatypesActions from '../../shared/actions/datatype.actions';
 import * as indexesActions from '../../shared/actions/index.actions';
-import * as metadataActions from '../../shared/actions/metadata.actions';
-import * as datasetsActions from '../../shared/actions/dataset.actions';
-import { ElementRef, ViewChild} from '@angular/core';
-import {DataSource} from '@angular/cdk/collections';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { ViewChild} from '@angular/core';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
-import { Subscription } from 'rxjs/Rx';
-import * as fromRoot from '../../shared/reducers/dataverse.reducer';
-import { State } from '../../shared/reducers/dataverse.reducer';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -56,7 +47,7 @@ export class MetadataComponent {
     indexes$: Observable<any>;
     indexes: any;
 
-    constructor(private store: Store<any>, private changeDetector: ChangeDetectorRef, public dialog: MatDialog) {
+    constructor(private store: Store<any>, public dialog: MatDialog) {
         this.refreshMetadata();
     }
 
@@ -121,7 +112,7 @@ export class MetadataComponent {
     panelOpenState: boolean = false;
 
 
-    generateFilter(dataverse, event, value) {
+    generateFilter(dataverse, event) {
 
         if (event.checked === true) {
             this.dataverseFilter[dataverse] = event.checked;
