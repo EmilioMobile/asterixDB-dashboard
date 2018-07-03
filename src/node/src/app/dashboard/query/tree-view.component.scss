@@ -50,6 +50,9 @@ limitations under the License.
   flex-flow: row;
   align-items: flex-start;
   font-size: 14px;
+  border: 1px dashed gainsboro;
+  padding-top: 20px;
+  padding-bottom: 20px
 }
 
 .content {
@@ -84,7 +87,6 @@ limitations under the License.
   margin-top: 15px;
   margin-bottom: 15px;
   padding-bottom: 15px;
-  margin-left: 5px;
   font-size: 14px;
   border-bottom: 1px dashed gray;
 }
