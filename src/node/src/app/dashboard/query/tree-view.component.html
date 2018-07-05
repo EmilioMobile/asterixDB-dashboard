@@ -42,7 +42,9 @@ limitations under the License.
         </div>
         <div id='bottom'></div>
       </div>
-      <button *ngIf='showGoTop' mat-button class='button back-button' (click)='gotoTop()'>TOP</button>
+      <button *ngIf='showGoTop' mat-fab color='warn' class='button back-button' (click)='gotoTop()'>
+          <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
     </mat-panel-description>
   </mat-expansion-panel>
 </div>
