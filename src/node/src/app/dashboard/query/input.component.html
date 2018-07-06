@@ -11,8 +11,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */-->
-  <mat-expansion-panel class="card" hideToggle>
-    <mat-expansion-panel-header class="header">
+  <mat-expansion-panel class="card" hideToggle [expanded]="true">
+    <mat-expansion-panel-header class="header" >
       <mat-panel-title>
           <mat-panel-title>SQL++ INPUT ({{currentQuery+1}}/{{preparedQueryCount}})
           </mat-panel-title>
@@ -37,8 +37,8 @@ limitations under the License.
       </div>
       <div class="history">
         <div>HISTORY ({{viewCurrentHistory}}/{{history.length}})</div>
-        <button mat-button class='input-button' (click)="onClickPrevHistory()" matTooltip="History: Prev Query String"><mat-icon>keyboard_arrow_up</mat-icon></button>
-        <button mat-button class='input-button' (click)="onClickNextHistory()" matTooltip="History: Next Query String"><mat-icon>keyboard_arrow_down</mat-icon></button>
+        <button mat-button class='input-button' (click)="onClickNextHistory()" matTooltip="History: Next"><mat-icon>keyboard_arrow_up</mat-icon></button>
+        <button mat-button class='input-button' (click)="onClickPrevHistory()" matTooltip="History: Prev"><mat-icon>keyboard_arrow_down</mat-icon></button>
       </div>
     </mat-panel-description>
     <mat-action-row>
@@ -52,5 +52,6 @@ limitations under the License.
       <button mat-button class='input-button run' (click)="onClickRun()" matTooltip="Execute Query Input">RUN</button>
       <button mat-button class='input-button' (click)="onClickPrevious()" [disabled]="checkPrevious()" matTooltip="Previous Query Input">PREVIOUS</button>
       <button mat-button class='input-button' (click)="onClickNext()" [disabled]="checkNext()" matTooltip="Next Query Input">NEXT</button>
+      <button mat-button class='input-button' (click)="onClickMetadata()" [disabled]="" matTooltip="Next Query Input">METADATA</button>
     </mat-action-row>
   </mat-expansion-panel>

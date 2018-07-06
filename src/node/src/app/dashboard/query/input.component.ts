@@ -23,6 +23,7 @@ import {
 } from '@ngrx/store';
 import * as sqlQueryActions from '../../shared/actions/query.actions';
 import * as appActions from '../../shared/actions/app.actions'
+import * as dataverseActions from '../../shared/actions/dataverse.actions'
 import * as CodeMirror from 'codemirror';
 import {
   QueryRequest,
@@ -71,6 +72,8 @@ export class InputQueryComponent {
   history = [];
   currentHistory = 0;
   viewCurrentHistory = 0; // for the view
+  sideMenuVisible$: Observable<any>;
+  sideMenuVisible: any;
 
   /* Codemirror configuration */
   codemirrorConfig = {
@@ -170,8 +173,17 @@ export class InputQueryComponent {
     this.store.dispatch(new sqlQueryActions.PrepareQuery(this.queryPrepare));
 
     // lets inform other views what's the current SQL editor
-    let currentQueryIndex = String(this.currentQuery);
+    //let currentQueryIndex = String(this.currentQuery);
     this.store.dispatch(new appActions.setEditorIndex(String(this.currentQuery)));
+
+    // Get the list of dataversesthis.sideMenuVisible$
+    //this.sideMenuVisible$ = this.store.select(s => s.app.sideMenuVisible);
+    //this.sideMenuVisible$.subscribe((data: any) => {
+    //  if (data) {
+    //    this.sideMenuVisible = data;
+    //  }
+    //})
+    //this.store.dispatch(new dataverseActions.SelectDataverses('-'));
   }
 
   ngOnInit() {
@@ -183,6 +195,8 @@ export class InputQueryComponent {
        this.dataverses = data;
        this.defaultDataverse = 'KAMON'
     });
+
+    this.store.dispatch(new dataverseActions.SelectDataverses('-'));
   }
 
   showMetrics() {
@@ -341,7 +355,6 @@ export class InputQueryComponent {
    */
   @ViewChild('editor') editor: CodeMirror.Editor;
   ngAfterViewInit() {
-    //this.codemirrorConfig = this.codemirrorConfig || {};
     this.codemirrorInit(this.codemirrorConfig);
   }
 
@@ -385,5 +398,10 @@ export class InputQueryComponent {
       this.editor.getDoc().setValue(this.queryString);
       this.editor.focus();
     }
+  }
+
+  onClickMetadata() {
+    this.sideMenuVisible = !this.sideMenuVisible;
+    this.store.dispatch(new appActions.setSideMenuVisible(this.sideMenuVisible));
   }
 }

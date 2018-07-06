@@ -20,7 +20,7 @@ limitations under the License.
     </mat-expansion-panel-header>
     <section class="section">
       <li *ngFor="let dataverse of dataverses; index as i">
-        <mat-checkbox [labelPosition]="before" class="margin" (change)="generateFilter(dataverse.DataverseName, $event, value)" [(ngModel)]="dataverse.active">{{dataverse.DataverseName}}</mat-checkbox>
+        <mat-checkbox [labelPosition]="before" class="margin" (change)="generateFilter(dataverse.DataverseName, $event, value, i)" [(ngModel)]="dataverse.active">{{dataverse.DataverseName}}</mat-checkbox>
       </li>
       <div class="refresh">
         <mat-icon class="list-icon">cached</mat-icon>

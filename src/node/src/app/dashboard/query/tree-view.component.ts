@@ -132,7 +132,7 @@ export class TreeViewComponent {
 
   jsonVisible: any;
   jsonData: any;
-  jsonPath_: any = ': < DATA PATH >';
+  jsonPath_: any = ': < JSON PATH >';
 	rawData: any;
   treeData: any;
 	treeData_: any;

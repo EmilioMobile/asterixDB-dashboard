@@ -13,12 +13,19 @@ limitations under the License.
 */
 
 .query-tab {
+  display: flex;
+  flex-flow: column;
   width: 100%;
   min-height: 900px;
   margin: 0;
+  margin-bottom: 5px;
   padding: 0;
   background-color: gainsboro;
   color: white;
+}
+
+.flex-spacer {
+  flex: 1 1 40%;
 }
 
 .menu {

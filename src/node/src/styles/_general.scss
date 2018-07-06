@@ -59,16 +59,18 @@ textarea {
 .footer {
   margin-top: 20px;
   position: fixed;
-  right: 0;
+  left: 0;
   bottom: 0;
   height: 50px
 }
 
 .apache {
-  padding: 15px;
-  margin-left: 15px;
+  display: absolute;
+  bottom: 0;
+  margin: 15px;
   font-size: 10px;
   vertical-align: middle;
+  color: black;
 }
 
 .mat-checkbox-inner-container {

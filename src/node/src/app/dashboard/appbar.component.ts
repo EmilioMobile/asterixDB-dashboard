@@ -12,10 +12,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import * as appActions from '../shared/actions/app.actions'
-import * as dataverseActions from '../shared/actions/dataverse.actions';
 
 @Component({
     moduleId: module.id,
@@ -24,23 +20,4 @@ import * as dataverseActions from '../shared/actions/dataverse.actions';
     styleUrls: ['appbar.component.scss']
 })
 
-export class AppBarComponent {
-    sideMenuVisible$: Observable<any>;
-    sideMenuVisible: boolean;
-
-    constructor(private store: Store<any>) {
-        this.sideMenuVisible$ = this.store.select(s => s.app.sideMenuVisible);
-		    this.sideMenuVisible$.subscribe((data: any) => {
-          if (data){
-                  this.sideMenuVisible = data;
-          } else {
-          }
-        })
-        this.store.dispatch(new dataverseActions.SelectDataverses('-'));
-    }
-
-    onClickMenu() {
-        this.sideMenuVisible = !this.sideMenuVisible;
-        this.store.dispatch(new appActions.setSideMenuVisible(this.sideMenuVisible));
-    }
-}
+export class AppBarComponent {}

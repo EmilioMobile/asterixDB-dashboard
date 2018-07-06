@@ -111,8 +111,17 @@ export class MetadataComponent {
     @ViewChild('datasetsPanel') datasetsPanel;
     panelOpenState: boolean = false;
 
+    checkStatus = [];
+    generateFilter(dataverse, event, i) {
 
-    generateFilter(dataverse, event) {
+        if (this.checkStatus[i] == undefined) {
+            this.checkStatus.push(event.checked);
+        } else {
+            this.checkStatus[i] = event.checked;
+        }
+
+        console.log(event);
+        console.log('k:' + this.checkStatus + ' ' + event);
 
         if (event.checked === true) {
             this.dataverseFilter[dataverse] = event.checked;
